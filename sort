@@ -1,0 +1,94 @@
+//直接插入排序 类似摸牌理牌的过程
+void insertSort (int arr[], int n)
+{
+	int temp,i,j;
+	for (i = 1;i < n; ++i)
+	{
+		temp = arr[i]; // i 为待排序元素位置
+		j = i-1; // i之前的为已排序好的部分 j为排序好的部分的最右侧
+		while(j >= 0 && temp < arr[j] )
+		{
+			arr[j+1] = arr[j];
+			--j;
+		}
+		arr[j+1] = temp ;
+	}
+}
+
+//简单选择排序 每次循环选择出最小值 放在已排序序列的最后
+void selectSort (int arr[], int n)
+{
+	int i,j,k;
+	int temp;
+	for (i = 0;i < n;++i)
+	{
+		k = i;
+		for (j=j+1;j<n;++j)	//求出arr中的最小值
+			if(arr[k] > arr[j])
+				k = j;
+		temp = arr[i];
+		arr[i] = arr[k];
+		arr[k] = temp ; //交换 k，i位置值 将k记录的最小值放在i处
+	}
+}
+
+//冒泡排序 大数沉底 小数上浮
+void bubleSort(int arr[], int n)
+{
+	int i,j,flag;
+	int temp;
+	for (i = n-1;i >= 1; --i)// i为未排序最末序号，每沉底一个大数，i向前移一位
+	{
+		flag = 0;
+		for (j = 1; j <= i; ++j)
+			if(arr[j-1] > arr[j])
+			{
+				temp = arr[j];
+				arr[j] = arr[j-1];
+				arr[j-1] = temp ;
+				
+				flag = 1; //标记是否发生交换
+			}
+		if (flag == 0)
+			return ;//如果没有发生交换 结束排序
+	}
+}
+
+// 希尔排序 （插入类的排序）
+// 按照希尔数取出子序列 对子序列进行简单插入排序 然后希尔数除以2  再取子序列
+// 比直接插入排序快 证明自行百度学习
+// 希尔数为1 即为直接插入排序
+void shellSort(int arr[],int n)
+{
+	int temp;
+	for (int gap = n/2 ; gap > 0; gap /= 2)
+	{
+		for (int i = gap; i < n ; ++i)
+		{
+			temp = arr[i];
+			int j;
+			for (j = i; j >= gap && arr[j-gap] > temp; j -= gap)
+				arr[j] = arr[j-gap] ;
+			arr[j] = temp ;
+		}
+	}
+}
+	
+// 快速排序 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
