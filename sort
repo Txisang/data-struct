@@ -75,6 +75,79 @@ void shellSort(int arr[],int n)
 }
 	
 // 快速排序 
+// 第一步 以第一个元素作为划分 左边都比他小 右边的都比他大
+// 然后递归 就可以排序了
+// // low =0  high = arr的最高位置
+void quickSort(int arr[], int low, int high) 
+{
+	int temp;// temp记录划分的那个元素
+	int i = low, j = high ;
+	if (low < high )
+	{
+		temp = arr[low];
+		while (i < j)
+		{
+			while (i < j && arr[j] >= temp ) --j ;
+			
+			if (i < j)
+			{
+				arr[i] = arr[j];
+				++i;
+			}
+			
+			while (i < j && arr[i] >= temp ) ++i ;
+			
+			if (i < j)
+			{
+				arr[j] = arr[i];
+				--j;
+			}
+		}
+		arr[i] = temp;
+		quickSort(arr,low,i-1);
+		quickSort(arr,i+1,high);
+	}
+}
+				
+// 堆排序 （简单选择排序的升级版本 利用堆找到最大or最小值）
+// 大顶堆 小顶堆 是完全二叉树 
+// 用顺序存储结构存储  根节点 从0开始存储 父节点位置i 其左孩子 2i+1 右孩子 2i+2 
+// 最后一个非叶子节点编号 n/2向下取整 - 1
+
+void heapSort(int arr[],int n)
+{
+	int i ;
+	int temp ;
+	for (i = n/2-1; i >= 0; --i ) //从最后一个非叶子节点开始 
+		sift(arr,i,i-1);
+	for (i = n-1; i>0; --i)
+	{
+		temp = arr[0];
+		arr[0] = arr[i];
+		arr[i] = temp ;
+		sift(arr,0,i-1);
+	}
+}
+
+void sift(int arr[], int low, int high)
+{
+	i = low, j = 2*i+1;//j为i的左儿子
+	int temp = arr[i];
+	while (j <= high)
+	{
+		if (j <high && arr[j] < arr[j+1])//j在数组内且i有右儿子 判断左儿子和右儿子大小
+			++j;//若右儿子大 j指向右儿子
+		if (temp < arr [j])
+		{
+			arr[i] = arr[j] ;
+			i = j ;
+			j = 2*i + 1;
+		}
+		else 
+			break;
+	}
+	arr[i] = temp ;
+}
 	
 	
 	
